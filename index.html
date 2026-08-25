@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NinjaX Chase - 2D Endless Runner</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="game-container">
+    <canvas id="gameCanvas" width="1280" height="720"></canvas>
+
+    <!-- In-Game HUD -->
+    <div id="hud" class="ui-layer hidden">
+      <div class="hud-top">
+        <div class="hud-box score-box">
+          <span class="hud-label">SCORE</span>
+          <span id="score-display" class="hud-value">0</span>
+        </div>
+
+        <div class="hud-center">
+          <div id="multiplier-badge" class="multiplier-badge hidden">
+            <span class="multiplier-text">2X ACTIVE</span>
+            <div class="multiplier-bar-wrap">
+              <div id="multiplier-bar" class="multiplier-bar"></div>
+            </div>
+          </div>
+          
+          <div class="chase-meter-container">
+            <div class="chase-meter-label">
+              <span>PURSUER PROXIMITY</span>
+              <span id="chase-status" class="chase-status-text">HOT ON TAIL</span>
+            </div>
+            <div class="chase-meter-track">
+              <div id="chase-meter-fill" class="chase-meter-fill"></div>
+              <div id="chase-marker" class="chase-marker">🐺</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hud-box highscore-box">
+          <span class="hud-label">HIGH SCORE</span>
+          <span id="highscore-display" class="hud-value">0</span>
+        </div>
+      </div>
+
+      <div class="hud-bottom-controls">
+        <div class="control-hint"><kbd>SPACE</kbd> Jump | <kbd>SPACE x2</kbd> Double Jump</div>
+        <div class="control-hint"><kbd>▼</kbd> / <kbd>S</kbd> Parkour Slide</div>
+        <div class="hud-actions">
+          <button id="pause-btn" class="icon-btn" title="Pause game">Ⅱ</button>
+          <button id="mute-btn" class="icon-btn" title="Toggle Sound">🔊</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Start / Title Screen -->
+    <div id="start-screen" class="ui-layer">
+      <div class="title-wrapper">
+        <div class="title-badge">NEON PARKOUR RUNNER</div>
+        <h1 class="game-title">NinjaX<br><span class="title-highlight">CHASE</span></h1>
+        <p class="game-subtitle">Outrun the shadow beast across the neon skyline.</p>
+      </div>
+
+      <div class="start-card">
+        <div class="instructions-grid">
+          <div class="instruction-item">
+            <div class="key-badge">SPACE / ▲</div>
+            <div class="inst-info">
+              <strong>Jump & Double Jump</strong>
+              <span>Hold higher, press in mid-air to Double Jump</span>
+            </div>
+          </div>
+          <div class="instruction-item">
+            <div class="key-badge">▼ / S</div>
+            <div class="inst-info">
+              <strong>Parkour Slide</strong>
+              <span>Duck under low beams & overhead signs</span>
+            </div>
+          </div>
+          <div class="instruction-item">
+            <div class="key-badge">2X ORB</div>
+            <div class="inst-info">
+              <strong>Score Multiplier</strong>
+              <span>Doubles distance & coin points for 7s</span>
+            </div>
+          </div>
+        </div>
+
+        <button id="start-btn" class="primary-btn pulse-glow">PRESS SPACE TO START</button>
+        <p class="mobile-note">Tap screen or click anywhere to play</p>
+      </div>
+    </div>
+
+    <!-- 3-2-1-GO Countdown Overlay -->
+    <div id="countdown-overlay" class="ui-layer hidden">
+      <div id="countdown-text" class="countdown-number">3</div>
+    </div>
+
+    <!-- Pause Menu -->
+    <div id="pause-screen" class="ui-layer hidden">
+      <div class="pause-card">
+        <div class="title-badge">RUN ON HOLD</div>
+        <h2 class="pause-title">PAUSED</h2>
+        <div class="pause-actions">
+          <button id="resume-btn" class="primary-btn">RESUME</button>
+          <button id="pause-restart-btn" class="secondary-btn">RESTART</button>
+          <button id="exit-btn" class="secondary-btn">EXIT TO TITLE</button>
+        </div>
+        <p class="pause-hint"><kbd>P</kbd> or <kbd>ESC</kbd> to resume</p>
+      </div>
+    </div>
+
+    <!-- Death / Fail Toast Overlay -->
+    <div id="fail-toast" class="fail-toast hidden">
+      <div id="fail-reason-title" class="fail-reason-title">YOU FELL!</div>
+      <div id="fail-reason-desc" class="fail-reason-desc">Missed the NinjaX ledge</div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameover-screen" class="ui-layer hidden">
+      <div class="gameover-card">
+        <div id="fail-badge" class="fail-badge">CAUGHT BY PURSUER!</div>
+        <h2 class="gameover-title">RUN ENDED</h2>
+
+        <div class="stats-container">
+          <div class="stat-card">
+            <span class="stat-label">FINAL SCORE</span>
+            <span id="final-score" class="stat-value">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">DISTANCE</span>
+            <span id="final-distance" class="stat-value">0 m</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">COINS COLLECTED</span>
+            <span id="final-coins" class="stat-value">0</span>
+          </div>
+        </div>
+
+        <div id="new-highscore-banner" class="new-highscore-banner hidden">
+          ⭐ NEW PERSONAL BEST! ⭐
+        </div>
+
+        <div class="gameover-actions">
+          <button id="restart-btn" class="primary-btn pulse-glow">PLAY AGAIN (SPACE)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Touch Zones -->
+    <div id="touch-controls" class="touch-controls hidden">
+      <div id="touch-jump" class="touch-zone touch-jump">
+        <span>▲ TAP TOP HALF TO JUMP</span>
+      </div>
+      <div id="touch-slide" class="touch-zone touch-slide">
+        <span>▼ TAP BOTTOM HALF TO SLIDE</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="audio.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

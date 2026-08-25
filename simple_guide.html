@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NinjaX Chase - Simple Project Guide & Interview Cheat Sheet</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 14mm 14mm 14mm 14mm;
+      @bottom-right {
+        content: counter(page);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.5;
+      color: #1e293b;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header-banner {
+      background: linear-gradient(135deg, #09081a 0%, #170c24 50%, #260b18 100%);
+      color: #ffffff;
+      padding: 20px 24px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      border-bottom: 3px solid #00f0ff;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(0, 240, 255, 0.2);
+      border: 1px solid #00f0ff;
+      color: #00f0ff;
+      font-size: 8pt;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .main-title {
+      font-size: 22pt;
+      font-weight: 900;
+      margin: 0 0 6px 0;
+      letter-spacing: -0.5px;
+    }
+
+    .main-title span {
+      background: linear-gradient(90deg, #ff0077, #ff7700, #ffcc00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 10.5pt;
+      color: #94a3b8;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    h2 {
+      font-size: 12pt;
+      font-weight: 800;
+      color: #0f172a;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 4px;
+      margin-top: 18px;
+      margin-bottom: 10px;
+      page-break-after: avoid;
+    }
+
+    /* Cards / Feature Blocks */
+    .system-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid #00f0ff;
+      border-radius: 6px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+
+    .system-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .system-title {
+      font-size: 11pt;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .tech-tag {
+      background: #0f172a;
+      color: #00f0ff;
+      font-size: 7.5pt;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'Consolas', monospace;
+    }
+
+    .three-ws {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 5px;
+      font-size: 9pt;
+    }
+
+    .w-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .w-label {
+      font-weight: 800;
+      min-width: 50px;
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .w-what { color: #0284c7; }
+    .w-how { color: #d97706; }
+    .w-why { color: #16a34a; }
+
+    .w-text {
+      color: #334155;
+      flex: 1;
+    }
+
+    .buzzword-pill {
+      display: inline-block;
+      background: #e2e8f0;
+      color: #0f172a;
+      font-size: 7.5pt;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 3px;
+      margin-right: 4px;
+      font-family: 'Consolas', monospace;
+    }
+
+    /* Q&A Section */
+    .qa-card {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      page-break-inside: avoid;
+    }
+
+    .qa-q {
+      font-weight: 800;
+      color: #0f172a;
+      font-size: 9.5pt;
+      margin-bottom: 4px;
+    }
+
+    .qa-a {
+      font-size: 8.8pt;
+      color: #475569;
+    }
+
+    .elevator-pitch {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-left: 4px solid #16a34a;
+      padding: 12px 14px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      font-size: 9pt;
+      color: #166534;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER BANNER -->
+  <div class="header-banner">
+    <div class="badge">INTERVIEW READY CHEAT SHEET</div>
+    <h1 class="main-title">NinjaX CHASE — <span>ENGINE EXPLAINER</span></h1>
+    <p class="subtitle">A simple, intuitive README-style breakdown: What is happening, How it works, Why it was built this way, and the exact Technical Buzzwords to use in interviews.</p>
+  </div>
+
+  <!-- ELEVATOR PITCH -->
+  <div class="elevator-pitch">
+    <strong>💡 30-Second Elevator Pitch for Interviews:</strong><br>
+    <em>"I built a 2D endless parkour runner from scratch using pure HTML5 Canvas and vanilla JavaScript with zero external engines or libraries. It features frame-rate independent delta-time physics, coyote time and jump buffering for tight controls, procedural NinjaX generation with zero memory buildup, AABB collision detection, and procedural sound synthesis using the Web Audio API."</em>
+  </div>
+
+  <h2>Core Game Systems (What • How • Why)</h2>
+
+  <!-- SYSTEM 1 -->
+  <div class="system-card" style="border-left-color: #00f0ff;">
+    <div class="system-header">
+      <span class="system-title">1. The Smooth Game Loop & Speed Control</span>
+      <span class="tech-tag">Delta-Time (dt) • requestAnimationFrame</span>
+    </div>
+    <div class="three-ws">
+      <div class="w-row">
+        <span class="w-label w-what">WHAT:</span>
+        <span class="w-text">The game runs at a smooth, constant speed on any device—whether it's a 60Hz office monitor or a 240Hz gaming display.</span>
+      </div>
+      <div class="w-row">
+        <span class="w-label w-how">HOW:</span>
+        <span class="w-text">Every frame, we measure the elapsed time (<code>dt</code>) between frames using <code>requestAnimationFrame</code> and multiply all movement speeds by <code>dt</code>.</span>
+      </div>
+      <div class="w-row">
+        <span class="w-label w-why">WHY:</span>
+        <span class="w-text">Without delta-time, the character would run 4x faster on a 240Hz monitor than on a 60Hz screen, making the game unplayable!</span>
+      </div>
+    </div>
+    <div style="margin-top: 6px;">
+      <span class="buzzword-pill">Frame-Rate Independence</span>
+      <span class="buzzword-pill">Delta-Time Clamping</span>
+      <span class="buzzword-pill">requestAnimationFrame</span>
+    </div>
+  </div>
+
+  <!-- SYSTEM 2 -->
+  <div class="system-card" style="border-left-color: #ff0077;">
+    <div class="system-header">
+      <span class="system-title">2. Parkour Jumping, Double Jump & Sliding</span>
+      <span class="tech-tag">Kinematics • Coyote Time • Jump Buffer</span>
+    </div>
+    <div class="three-ws">
+      <div class="w-row">
+        <span class="w-label w-what">WHAT:</span>
+        <span class="w-text">Responsive jumping (tap for low hop, hold for high leap), mid-air 360° somersault double jump, and sliding under low beams.</span>
+      </div>
+      <div class="w-row">
+        <span class="w-label w-how">HOW:</span>
+        <span class="w-text">Holding Space applies continuous upward thrust for 0.16s. Pressing Space in mid-air rotates the ninja 360°. Sliding cuts hitbox height in half while keeping the feet locked firmly to the NinjaX surface.</span>
+      </div>
+      <div class="w-row">
+        <span class="w-label w-why">WHY:</span>
+        <span class="w-text">To make controls feel ultra-responsive like <em>Celeste</em>, we added <strong>Coyote Time</strong> (120ms grace window to jump after leaving a ledge) and <strong>Jump Buffering</strong> (remembers a jump pressed slightly before landing).</span>
+      </div>
+    </div>
+    <div style="margin-top: 6px;">
+      <span class="buzzword-pill">Coyote Time</span>
+      <span class="buzzword-pill">Jump Buffering</span>
+      <span class="buzzword-pill">Variable Jump Boost</span>
+      <span class="buzzword-pill">Hitbox Anchoring</span>
+    </div>
+  </div>
+
+  <!-- SYSTEM 3 -->
+  <div class="system-card" style="border-left-color: #ff7700;">
+    <div class="system-header">
+      <span class="system-title">3. Infinite Procedural NinjaX & Obstacles</span>
+      <span class="tech-tag">Procedural Gen • Object Recycling</span>
+    </div>
+    <div class="three-ws">
+      <div class="w-row">
+        <span class="w-label w-what">WHAT:</span>
+        <span class="w-text">NinjaX, gaps, AC units, overhead signs, and coins generate endlessly ahead of the player as you run.</span>
+      </div>
+      <div class="w-row">
+        <span class="w-label w-how">HOW:</span>
+        <span class="w-text">New building segments are created just past the right edge of the screen, with gap sizes mathematically scaled to current running speed so every jump is solvable.</span>
+      </div>
+      <div class="w-row">
+        <span class="w-label w-why">WHY:</span>
+        <span class="w-text">Old buildings that scroll past the left edge are removed immediately. This keeps memory usage completely flat ($O(1)$) so the game never lags or leaks memory.</span>
+      </div>
+    </div>
+    <div style="margin-top: 6px;">
+      <span class="buzzword-pill">Procedural Generation</span>
+      <span class="buzzword-pill">Garbage Collection (GC) Optimization</span>
+      <span class="buzzword-pill">O(1) Memory Footprint</span>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- SYSTEM 4 -->
+  <div class="system-card" style="border-left-color: #ffcc00;">
+    <div class="system-header">
+      <span class="system-title">4. Collision Detection (Platforms, Obstacles, Coins)</span>
+      <span class="tech-tag">AABB Collision • Radial Distance</span>
+    </div>
+    <div class="three-ws">
+      <div class="w-row">
+        <span class="w-label w-what">WHAT:</span>
+        <span class="w-text">Detecting when the ninja lands on NinjaX, hits an obstacle, slides under an overhead beam, or collects coins.</span>
+      </div>
+      <div class="w-row">
+        <span class="w-label w-how">HOW:</span>
+        <span class="w-text">Using <strong>Axis-Aligned Bounding Box (AABB)</strong> overlap for platforms and obstacles, and circular distance for coins and multiplier orbs.</span>
+      </div>
+      <div class="w-row">
+        <span class="w-label w-why">WHY:</span>
+        <span class="w-text">Simple math formulas run in microseconds—no heavy physics engine like Box2D or Matter.js is needed for a 2D runner!</span>
+      </div>
+    </div>
+    <div style="margin-top: 6px;">
+      <span class="buzzword-pill">AABB Bounding Box</span>
+      <span class="buzzword-pill">Squared Distance Optimization</span>
+      <span class="buzzword-pill">Discrete Collision</span>
+    </div>
+  </div>
+
+  <!-- SYSTEM 5 -->
+  <div class="system-card" style="border-left-color: #00ff99;">
+    <div class="system-header">
+      <span class="system-title">5. Parallax Sunset City Background</span>
+      <span class="tech-tag">Parallax Scrolling • 3D Depth Illusion</span>
+    </div>
+    <div class="three-ws">
+      <div class="w-row">
+        <span class="w-label w-what">WHAT:</span>
+        <span class="w-text">The cityscape looks deep and cinematic with lit skyscrapers, water towers, and blinking red spire lights.</span>
+      </div>
+      <div class="w-row">
+        <span class="w-label w-how">HOW:</span>
+        <span class="w-text">We draw 3 separate background layers moving at different speeds: distant towers move very slowly (0.08x), mid-city moves medium (0.28x), and active NinjaX move full speed (1.0x).</span>
+      </div>
+      <div class="w-row">
+        <span class="w-label w-why">WHY:</span>
+        <span class="w-text">Creates the optical illusion of 3D depth on a flat 2D canvas without needing 3D models or heavy graphics libraries.</span>
+      </div>
+    </div>
+    <div style="margin-top: 6px;">
+      <span class="buzzword-pill">Parallax Scrolling</span>
+      <span class="buzzword-pill">Multi-Layer Depth</span>
+      <span class="buzzword-pill">Relative Speed Scaling</span>
+    </div>
+  </div>
+
+  <!-- SYSTEM 6 -->
+  <div class="system-card" style="border-left-color: #a78bfa;">
+    <div class="system-header">
+      <span class="system-title">6. Built-in Audio Synthesizer (Zero MP3 Files)</span>
+      <span class="tech-tag">Web Audio API • Procedural DSP</span>
+    </div>
+    <div class="three-ws">
+      <div class="w-row">
+        <span class="w-label w-what">WHAT:</span>
+        <span class="w-text">All jump whooshes, slide friction, coin chimes, beast growls, and the 124 BPM synthwave bassline play with zero external audio files.</span>
+      </div>
+      <div class="w-row">
+        <span class="w-label w-how">HOW:</span>
+        <span class="w-text">The browser’s built-in <code>AudioContext</code> synthesizes sine, triangle, and noise waves directly on your sound card in real-time.</span>
+      </div>
+      <div class="w-row">
+        <span class="w-label w-why">WHY:</span>
+        <span class="w-text">Eliminates missing audio files, avoids browser CORS security errors on local files, and loads instantly with 0ms delay.</span>
+      </div>
+    </div>
+    <div style="margin-top: 6px;">
+      <span class="buzzword-pill">Web Audio API</span>
+      <span class="buzzword-pill">Oscillator Nodes</span>
+      <span class="buzzword-pill">Procedural Audio DSP</span>
+    </div>
+  </div>
+
+  <!-- INTERVIEW QUICK STUDY Q&A -->
+  <h2>Top 5 Interview Questions (Simple 2-Sentence Answers)</h2>
+
+  <div class="qa-card">
+    <div class="qa-q">Q1: Why do you use Delta-Time (dt) in the game loop?</div>
+    <div class="qa-a"><strong>Answer:</strong> Delta-time ensures that movement speed is tied to real-world clock time rather than screen refresh rates. Without it, the game would run at 2x speed on a 120Hz display and 4x speed on a 240Hz monitor.</div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-q">Q2: What are Coyote Time and Jump Buffering?</div>
+    <div class="qa-a"><strong>Answer:</strong> <em>Coyote Time</em> gives a brief grace window (120ms) allowing a jump after running off a ledge. <em>Jump Buffering</em> stores a jump pressed slightly before landing (160ms) and fires it the moment the character touches NinjaX, eliminating input lag.</div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-q">Q3: How do you prevent memory leaks in an infinite endless runner?</div>
+    <div class="qa-a"><strong>Answer:</strong> We actively recycle entities: objects that scroll off the left side of the screen are immediately deleted, while new ones are generated on the right. This keeps memory usage flat ($O(1)$) and avoids Garbage Collection frame drops.</div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-q">Q4: How does AABB collision detection work?</div>
+    <div class="qa-a"><strong>Answer:</strong> Axis-Aligned Bounding Box (AABB) checks if two non-rotated rectangles overlap on both horizontal and vertical axes simultaneously. It is computationally lightweight, requiring only 4 simple comparison operations.</div>
+  </div>
+
+  <div class="qa-card">
+    <div class="qa-q">Q5: Why did you build the game with pure Canvas instead of a framework like Phaser or Unity?</div>
+    <div class="qa-a"><strong>Answer:</strong> Building from first principles provides zero-dependency portability, instant load times, full control over physics and rendering, and demonstrates deep mastery of core computer graphics and math fundamentals.</div>
+  </div>
+
+  <div style="margin-top: 14px; border-top: 1px solid #cbd5e1; padding-top: 8px; font-size: 8pt; color: #64748b; text-align: center;">
+    <strong>NinjaX Chase Interview Cheat Sheet</strong> • What • How • Why Architecture Summary
+  </div>
+
+</body>
+</html>

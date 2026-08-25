@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NinjaX Chase - Engineering & Architectural Masterclass Documentation</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm 18mm 16mm;
+      @bottom-right {
+        content: counter(page);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.55;
+      color: #1e293b;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Cover Page */
+    .cover-page {
+      page-break-after: always;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px;
+      background: linear-gradient(135deg, #09081a 0%, #170c24 50%, #260b18 100%);
+      color: #ffffff;
+      border-radius: 12px;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      background: rgba(0, 240, 255, 0.15);
+      border: 1px solid #00f0ff;
+      color: #00f0ff;
+      font-size: 10pt;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .cover-title {
+      font-size: 34pt;
+      font-weight: 900;
+      line-height: 1.1;
+      margin: 0 0 16px 0;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+
+    .cover-title span {
+      background: linear-gradient(90deg, #ff0077, #ff7700, #ffcc00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cover-subtitle {
+      font-size: 14pt;
+      color: #94a3b8;
+      max-width: 600px;
+      margin: 0 0 40px 0;
+      line-height: 1.5;
+    }
+
+    .cover-meta {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding-top: 24px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      font-size: 9.5pt;
+      color: #cbd5e1;
+    }
+
+    .meta-item strong {
+      color: #00f0ff;
+      display: block;
+      margin-bottom: 2px;
+      text-transform: uppercase;
+      font-size: 8pt;
+      letter-spacing: 1px;
+    }
+
+    /* Document Structure */
+    h1 {
+      font-size: 18pt;
+      font-weight: 800;
+      color: #0f172a;
+      border-bottom: 2px solid #00f0ff;
+      padding-bottom: 6px;
+      margin-top: 28px;
+      margin-bottom: 14px;
+      page-break-after: avoid;
+    }
+
+    h2 {
+      font-size: 13.5pt;
+      font-weight: 700;
+      color: #1e293b;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      border-left: 4px solid #ff0077;
+      padding-left: 10px;
+      page-break-after: avoid;
+    }
+
+    h3 {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #334155;
+      margin-top: 16px;
+      margin-bottom: 8px;
+      page-break-after: avoid;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 10px;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin-top: 0;
+      margin-bottom: 12px;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    /* Callout Boxes */
+    .callout {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid #0284c7;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin: 14px 0;
+      font-size: 9.5pt;
+      page-break-inside: avoid;
+    }
+
+    .callout-title {
+      font-weight: 700;
+      color: #0369a1;
+      margin-bottom: 4px;
+      font-size: 10pt;
+    }
+
+    .callout-warning {
+      background: #fffbeb;
+      border-color: #fde68a;
+      border-left-color: #f59e0b;
+    }
+    .callout-warning .callout-title { color: #b45309; }
+
+    .callout-tip {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+      border-left-color: #16a34a;
+    }
+    .callout-tip .callout-title { color: #15803d; }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 9pt;
+      page-break-inside: avoid;
+    }
+
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #0f172a;
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+
+    /* Code Blocks */
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 12px 14px;
+      border-radius: 6px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 8.5pt;
+      line-height: 1.45;
+      overflow-x: auto;
+      margin: 12px 0;
+      border: 1px solid #1e293b;
+      page-break-inside: avoid;
+    }
+
+    code {
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 8.5pt;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 2px 5px;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+    }
+
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    .keyword { color: #f43f5e; font-weight: bold; }
+    .function { color: #38bdf8; }
+    .string { color: #fbbf24; }
+    .comment { color: #64748b; font-style: italic; }
+    .number { color: #a78bfa; }
+
+    /* Q&A Section */
+    .qa-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      page-break-inside: avoid;
+    }
+
+    .qa-question {
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 10.5pt;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: baseline;
+    }
+
+    .qa-badge {
+      background: #0f172a;
+      color: #00f0ff;
+      font-size: 7.5pt;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 8px;
+    }
+
+    .qa-answer {
+      font-size: 9.5pt;
+      color: #334155;
+      line-height: 1.5;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="cover-page">
+    <div class="cover-badge">Engineering Masterclass & Technical Reference</div>
+    <h1 class="cover-title">NinjaX CHASE<br><span>GAME ENGINE ARCHITECTURE</span></h1>
+    <p class="cover-subtitle">A Comprehensive Deep-Dive into HTML5 Canvas Game Loops, Parkour Kinematics, Procedural Generation, Collision Systems, Web Audio Synthesis, and Senior Interview Insights.</p>
+    
+    <div class="cover-meta">
+      <div class="meta-item">
+        <strong>Technology Stack</strong>
+        HTML5 Canvas 2D, Vanilla JavaScript (ES6+), Web Audio API
+      </div>
+      <div class="meta-item">
+        <strong>Architectural Style</strong>
+        Decoupled Delta-Time Game Loop, Finite State Machine (FSM)
+      </div>
+      <div class="meta-item">
+        <strong>Engineering Topics</strong>
+        AABB Collisions, Kinematics, Parallax Math, Audio DSP
+      </div>
+      <div class="meta-item">
+        <strong>Document Purpose</strong>
+        Comprehensive Systems Breakdown & Technical Interview Readiness
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLE OF CONTENTS / EXECUTIVE SUMMARY -->
+  <h1>1. Executive Summary & Architectural Overview</h1>
+  <p><strong>NinjaX Chase</strong> is a high-performance, single-threaded, browser-native 2D endless runner built purely on standard web technologies without external dependencies, build tools, or heavyweight game engines. The architecture emphasizes <em>frame-rate independence</em>, <em>zero-allocation execution loops</em>, <em>sub-pixel parkour kinematics</em>, and <em>real-time digital signal processing (DSP)</em> for audio synthesis.</p>
+
+  <div class="callout callout-tip">
+    <div class="callout-title">Core Design Philosophy: Zero-Dependency Pure Engineering</div>
+    By eschewing heavy frameworks (such as Unity, Phaser, or PixiJS), this codebase demonstrates absolute mastery over raw 2D coordinate spaces, hardware-accelerated rasterization pipelines, discrete input event queues, and temporal integration.
+  </div>
+
+  <h2>System Architecture Diagram</h2>
+  <pre>
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                           BROWSER / HARDWARE LAYER                              │
+│         [Display V-Sync (~60Hz / 144Hz)]        [Web Audio DAC Output]           │
+└───────────────────────────────▲─────────────────────────────▲───────────────────┘
+                                │ requestAnimationFrame        │ AudioNode Graph
+┌───────────────────────────────┴─────────────────────────────┴───────────────────┐
+│                               MASTER ENGINE CORE                                │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│  ┌─────────────────────────┐  ┌─────────────────────────┐  ┌─────────────────┐  │
+│  │   INPUT CONTROLLER      │  │  FINITE STATE MACHINE   │  │ AUDIO SYNTH DSP │  │
+│  │  - Edge-triggered Jump  │  │  - START                │  │ - Pulse / Sine  │  │
+│  │  - Variable Jump Boost  │  │  - COUNTDOWN            │  │ - White Noise   │  │
+│  │  - Ground Sliding Lock  │  │  - PLAYING              │  │ - 124 BPM Synth │  │
+│  │  - Buffer & Coyote Time │  │  - FAIL / GAMEOVER      │  │   Bass Sequence │  │
+│  └────────────┬────────────┘  └────────────┬────────────┘  └─────────────────┘  │
+│               │                            │                                    │
+│  ┌────────────▼────────────────────────────▼─────────────────────────────────┐  │
+│  │                    UPDATE CYCLE (Delta-Time dt)                           │  │
+│  │  1. Speed Ramp Progression: v(t) = v_0 + (dist * alpha)                   │  │
+│  │  2. Entity Kinematics: NinjaPlayer & RivalPursuer integration             │  │
+  │  │  3. Procedural NinjaX & Clutter Recycling (O(1) Memory Pool)              │  │
+│  │  4. Narrow-Phase Collision Engine (AABB & Euclidean Radial Distance)      │  │
+│  │  5. Dynamic Particle Physics & Floating Toast Emitters                    │  │
+│  └─────────────────────────────────────────┬─────────────────────────────────┘  │
+│                                            │                                    │
+│  ┌─────────────────────────────────────────▼─────────────────────────────────┐  │
+│  │                    RENDER PIPELINE (Canvas 2D Context)                    │  │
+│  │  - Parallax Background Layers (0.08x, 0.28x, 0.6x depth projection)       │  │
+  │  │  - Active NinjaX, Vents, AC Compressors, Overhead Laser Beams             │  │
+│  │  - Procedural Character Kinematics (Leg Cycles, Vault & Slide Poses)      │  │
+│  │  - Dynamic 4-Segment Cloth Scarf Physics & Somersault Matrix Transform   │  │
+│  │  - Camera Shake & Particle Blending Overlays                              │  │
+│  └───────────────────────────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────────────────────┘
+  </pre>
+
+  <!-- CHAPTER 2: TECH STACK SELECTION & TRADE-OFFS -->
+  <div class="page-break"></div>
+  <h1>2. Technology Stack Selection & Trade-Off Analysis</h1>
+  <p>In senior technical interviews, justifying <em>why</em> a technology was chosen—and what compromises were accepted—is critical. Below is the comparative matrix evaluated during project architecture.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Technology</th>
+        <th>Key Advantages</th>
+        <th>Inherent Trade-Offs</th>
+        <th>Verdict for NinjaX Chase</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>HTML5 Canvas + Vanilla JS</strong></td>
+        <td>Zero build step, 0 bytes external download, instant cold boot, direct DOM integration, runs on 100% of modern browsers.</td>
+        <td>Must manually implement physics, collisions, camera transforms, and asset pipelines.</td>
+        <td><strong>SELECTED (Optimal for portfolio, speed, and educational purity).</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Phaser.js / PixiJS</strong></td>
+        <td>Pre-built scene graph, physics engines (Arcade/Matter), sprite atlas management.</td>
+        <td>300KB-1MB library bundle, framework lock-in, black-box physics abstraction.</td>
+        <td>Rejected: Obscures fundamental algorithmic concepts.</td>
+      </tr>
+      <tr>
+        <td><strong>Unity / Godot (WebAssembly)</strong></td>
+        <td>Visual editor, cross-platform export, complex 3D physics capabilities.</td>
+        <td>15MB-30MB initial download, slow load times, high battery drain on mobile.</td>
+        <td>Rejected: Overkill for lightweight 2D endless runners.</td>
+      </tr>
+      <tr>
+        <td><strong>Python (Pygame)</strong></td>
+        <td>Clean OOP structure, rapid prototyping.</td>
+        <td>Cannot run natively in standard web browsers without complex WASM wrappers (Pyodide).</td>
+        <td>Rejected: Fails the browser portability requirement.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- CHAPTER 3: CORE GAME LOOP & TEMPORAL INTEGRATION -->
+  <h1>3. The Decoupled Game Loop & Temporal Integration</h1>
+
+  <h2>3.1 The Problem with Frame-Coupled Updates</h2>
+  <p>In naive game implementations, movement is computed by adding a static pixel offset every frame: <code>x += speed</code>. This causes a catastrophic flaw: on a 60Hz screen, the player moves at 60 units/sec, but on a 144Hz or 240Hz gaming display, the player moves at 144–240 units/sec, rendering the game unplayable.</p>
+
+  <h2>3.2 Delta-Time ($\Delta t$) Normalization & Clamping</h2>
+  <p>The engine uses temporal integration based on the elapsed time between hardware frame ticks:</p>
+  $$\Delta t = \frac{t_{\text{current}} - t_{\text{previous}}}{1000}$$
+  <p>All velocity and acceleration vectors are multiplied by $\Delta t$, guaranteeing identical movement speed across any refresh rate.</p>
+
+  <pre><code><span class="keyword">function</span> <span class="function">gameLoop</span>(timestamp) {
+  <span class="keyword">if</span> (!lastTimestamp) lastTimestamp = timestamp;
+  
+  <span class="comment">// 1. Compute delta-time in seconds</span>
+  <span class="keyword">const</span> rawDt = (timestamp - lastTimestamp) / <span class="number">1000</span>;
+  lastTimestamp = timestamp;
+
+  <span class="comment">// 2. Clamp delta-time to 0.1s max to prevent "Spiral of Death" and Tunneling</span>
+  <span class="keyword">const</span> dt = Math.<span class="function">min</span>(rawDt, <span class="number">0.1</span>);
+
+  <span class="comment">// 3. Discrete Phase Separation</span>
+  <span class="function">update</span>(dt);
+  <span class="function">render</span>();
+
+  <span class="function">requestAnimationFrame</span>(gameLoop);
+}</code></pre>
+
+  <div class="callout callout-warning">
+    <div class="callout-title">Interview Deep-Dive: Delta-Time Clamping</div>
+    If a user switches browser tabs, <code>requestAnimationFrame</code> pauses. When returning 10 seconds later, <code>rawDt</code> would equal <code>10.0</code>. Without clamping, applying $v \cdot 10.0$ would teleport the character through platforms (<strong>tunneling</strong>) and trigger immediate deaths. Clamping to $0.1\text{s}$ gracefully absorbs tab suspension.
+  </div>
+
+  <!-- CHAPTER 4: KINEMATICS & PARKOUR MECHANICS -->
+  <div class="page-break"></div>
+  <h1>4. Parkour Kinematics & Player State Physics</h1>
+
+  <h2>4.1 Variable Jump Boost & Gravity</h2>
+  <p>To deliver a modern responsive feel (similar to <em>Celeste</em> or <em>Vector</em>), the jump mechanics implement a dual-phase impulse curve:</p>
+  <ol>
+    <li><strong>Initial Impulse:</strong> When Jump is triggered on the ground, an instantaneous vertical velocity $v_y = -580\text{ px/s}$ is applied.</li>
+    <li><strong>Sustained Thrust Window:</strong> If the player continues holding the jump button, a continuous upward acceleration $a = -1100\text{ px/s}^2$ is integrated for up to $0.16\text{s}$. Releasing early terminates the boost immediately, providing precise analog control over jump height.</li>
+    <li><strong>Constant Gravitational Acceleration:</strong> Downward pull $g = 1550\text{ px/s}^2$ guarantees crisp falling arcs without floatiness.</li>
+  </ol>
+
+  <h2>4.2 Jump Buffering & Coyote Time</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Mechanism</th>
+        <th>Temporal Window</th>
+        <th>Problem Solved</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Coyote Time</strong></td>
+        <td>$120\text{ ms}$</td>
+        <td>Allows the player to execute a jump even after their feet have physically walked off a NinjaX ledge, preventing frustrating "I pressed jump right at the edge but fell!" deaths.</td>
+      </tr>
+      <tr>
+        <td><strong>Jump Buffering</strong></td>
+        <td>$160\text{ ms}$</td>
+        <td>Stores jump inputs pressed slightly before touching down, executing the ground jump the exact millisecond the player contacts the NinjaX surface.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>4.3 The Slide Hitbox Offset Problem (Crucial Bug Fix)</h2>
+  <p>A classic game engineering pitfall occurs when toggling crouch/slide hitboxes. If a character standing height is $56\text{px}$ and slide height is $28\text{px}$, simply changing <code>height = 28</code> without shifting <code>y</code> causes the hitbox feet to float $28\text{px}$ above the NinjaX surface! On the next physics tick, the ground check fails, causing the player to enter airborne gravity mode and slide off ledges prematurely.</p>
+
+  <pre><code><span class="comment">// CORRECT Hitbox Height Transition (Preserving Ground Plane Alignment)</span>
+<span class="function">triggerSlide</span>() {
+  <span class="keyword">if</span> (<span class="keyword">this</span>.grounded && !<span class="keyword">this</span>.isSliding) {
+    <span class="keyword">this</span>.isSliding = <span class="keyword">true</span>;
+    <span class="keyword">this</span>.slideTimer = <span class="keyword">this</span>.maxSlideDuration;
+    <span class="comment">// Shift Y downwards by height delta to lock feet to NinjaX surface</span>
+    <span class="keyword">this</span>.y += (<span class="keyword">this</span>.standHeight - <span class="keyword">this</span>.slideHeight);
+    <span class="keyword">this</span>.height = <span class="keyword">this</span>.slideHeight;
+  }
+}
+
+<span class="comment">// Recovery back to standing</span>
+<span class="keyword">if</span> (<span class="keyword">this</span>.slideTimer <= <span class="number">0</span> && !input.slide) {
+  <span class="keyword">this</span>.isSliding = <span class="keyword">false</span>;
+  <span class="comment">// Shift Y upwards to maintain ground contact</span>
+  <span class="keyword">this</span>.y -= (<span class="keyword">this</span>.standHeight - <span class="keyword">this</span>.slideHeight);
+  <span class="keyword">this</span>.height = <span class="keyword">this</span>.standHeight;
+}</code></pre>
+
+  <h2>4.4 Mid-Air Double Jump & 360° Somersault Flip</h2>
+  <p>When the player executes a second jump while airborne (<code>!this.grounded && this.canDoubleJump</code>):</p>
+  <ul>
+    <li>The double jump token is consumed: <code>canDoubleJump = false</code>.</li>
+    <li>Upward velocity is reset to $v_y = -550\text{ px/s}$.</li>
+    <li>The somersault state is activated: <code>isDoubleJumping = true</code>, angular velocity $\omega = 14\text{ rad/s}$.</li>
+    <li>During rendering, a local 2D affine transformation matrix rotates the sprite about its centroid $(x + w/2, y + h/2)$ through $2\pi$ radians, smoothly returning to the upright posture upon completion.</li>
+    <li>The double jump recharges automatically upon touching any NinjaX platform.</li>
+  </ul>
+
+  <!-- CHAPTER 5: PROCEDURAL GENERATION & MEMORY MANAGEMENT -->
+  <div class="page-break"></div>
+  <h1>5. Procedural Level Generation & Memory Lifecycle</h1>
+
+  <h2>5.1 Solvability & Dynamic Difficulty Scaling</h2>
+  <p>To ensure endless playability without generating mathematically impossible jumps, gap widths are calculated dynamically as a function of the player's current horizontal scroll velocity:</p>
+  $$G_{\text{gap}} \in [110, \min(260, 120 + v_{\text{scroll}} \cdot 0.22)]$$
+  <p>Building height variance is constrained by $|\Delta y| \le 110\text{px}$, ensuring the parabola of any single or double jump can always reach the subsequent ledge.</p>
+
+  <h2>5.2 Zero-Allocation Object Recycling ($O(1)$ Memory Lifecycle)</h2>
+  <p>Endless runners risk memory leaks and Garbage Collection (GC) frame stutter if objects are continuously instantiated and abandoned. The <code>NinjaXManager</code> implements active pruning and recycling:</p>
+  <pre><code><span class="comment">// Prune entities that have fully cleared the left viewport</span>
+<span class="keyword">this</span>.NinjaXs = <span class="keyword">this</span>.NinjaXs.<span class="function">filter</span>(r => r.x + r.width > -<span class="number">400</span>);
+<span class="keyword">this</span>.coins = <span class="keyword">this</span>.coins.<span class="function">filter</span>(c => c.x > -<span class="number">100</span> && !c.collected);
+<span class="keyword">this</span>.powerups = <span class="keyword">this</span>.powerups.<span class="function">filter</span>(p => p.x > -<span class="number">100</span> && !p.collected);
+<span class="keyword">this</span>.obstacles = <span class="keyword">this</span>.obstacles.<span class="function">filter</span>(o => o.x + o.width > -<span class="number">200</span>);
+
+<span class="comment">// Spawn segments ahead of viewport buffer</span>
+<span class="keyword">while</span> (<span class="keyword">this</span>.lastNinjaXX < VIRTUAL_WIDTH * <span class="number">2.2</span>) {
+  <span class="keyword">this</span>.<span class="function">generateNextNinjaX</span>(scrollSpeed);
+}</code></pre>
+
+  <!-- CHAPTER 6: COLLISION DETECTION MATHEMATICS -->
+  <h1>6. Collision Detection Mathematics</h1>
+
+  <h2>6.1 Axis-Aligned Bounding Box (AABB) Intersection</h2>
+  <p>NinjaX platforms, AC compressor units, and low overhead beams utilize 2D Axis-Aligned Bounding Box testing. Two rectangular hitboxes $A$ and $B$ intersect if and only if:</p>
+  $$(A_x < B_x + B_w) \land (A_x + A_w > B_x) \land (A_y < B_y + B_h) \land (A_y + A_h > B_y)$$
+
+  <h2>6.2 Overhead Laser/Beam Slide Clearance</h2>
+  <p>The overhead beam hangs between $y_{\text{NinjaX}} - 72\text{px}$ and $y_{\text{NinjaX}} - 36\text{px}$.</p>
+  <ul>
+    <li><strong>Standing Ninja ($h=56$):</strong> Span is $[y_{\text{NinjaX}} - 56, y_{\text{NinjaX}}]$. The interval $[y_{\text{NinjaX}} - 56, y_{\text{NinjaX}}]$ overlaps $[y_{\text{NinjaX}} - 72, y_{\text{NinjaX}} - 36]$ because $y_{\text{NinjaX}} - 56 < y_{\text{NinjaX}} - 36$. $\rightarrow$ <strong>Collision triggers fail.</strong></li>
+    <li><strong>Sliding Ninja ($h=28$):</strong> Span is $[y_{\text{NinjaX}} - 28, y_{\text{NinjaX}}]$. Since $y_{\text{NinjaX}} - 28 > y_{\text{NinjaX}} - 36$, there is zero mathematical intersection. $\rightarrow$ <strong>Player glides safely underneath.</strong></li>
+  </ul>
+
+  <h2>6.3 Euclidean Distance vs Squared Distance Optimization</h2>
+  <p>For circular collectibles (Coins and 2X Multiplier Orbs), collision occurs when the distance between centers is less than the sum of radii ($r_1 + r_2$). Computing Euclidean distance requires a square root operation ($\sqrt{\Delta x^2 + \Delta y^2}$), which is computationally expensive on older mobile CPUs. The engine compares squared values:</p>
+  $$\Delta x^2 + \Delta y^2 \le (r_1 + r_2)^2$$
+
+  <!-- CHAPTER 7: PROCEDURAL AUDIO DSP -->
+  <div class="page-break"></div>
+  <h1>7. Procedural Audio Synthesis via Web Audio API</h1>
+  <p>Rather than loading external <code>.mp3</code> or <code>.wav</code> files—which introduce network latency, CORS security errors on local files, and decoding overhead—the audio engine synthesizes every sound in real-time through an <code>AudioNode</code> Directed Acyclic Graph (DAG).</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Sound Effect</th>
+        <th>Waveform / Source</th>
+        <th>DSP Envelope / Filter Chain</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Jump Whoosh</strong></td>
+        <td>Triangle Wave</td>
+        <td>Frequency pitch slide ($160\text{Hz} \to 480\text{Hz}$ in $180\text{ms}$), exponential gain decay.</td>
+      </tr>
+      <tr>
+        <td><strong>Double Jump Vault</strong></td>
+        <td>Sine Wave</td>
+        <td>High-register pitch riser ($320\text{Hz} \to 780\text{Hz}$ in $200\text{ms}$), resonant peak.</td>
+      </tr>
+      <tr>
+        <td><strong>Slide Friction</strong></td>
+        <td>White Noise Buffer</td>
+        <td>Real-time buffer generator through a Biquad Bandpass Filter ($900\text{Hz} \to 350\text{Hz}$, $Q=3.0$).</td>
+      </tr>
+      <tr>
+        <td><strong>Coin Sparkle</strong></td>
+        <td>Dual Sine Waves</td>
+        <td>Two-tone musical arpeggio: $B_5 (987.77\text{Hz})$ and $E_6 (1318.51\text{Hz})$ offset by $60\text{ms}$.</td>
+      </tr>
+      <tr>
+        <td><strong>2X Multiplier Fanfare</strong></td>
+        <td>Triangle Waves</td>
+        <td>Four-note major chord ascent ($C_5, E_5, G_5, C_6$) with exponential decay.</td>
+      </tr>
+      <tr>
+        <td><strong>Pursuer Growl</strong></td>
+        <td>Sawtooth Wave</td>
+        <td>Dissonant triad ($80\text{Hz}, 85\text{Hz}, 110\text{Hz}$) downward pitch dive.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- CHAPTER 8: SENIOR TECHNICAL INTERVIEW Q&A -->
+  <div class="page-break"></div>
+  <h1>8. Senior Technical Interview Preparation: Deep-Dive Q&A</h1>
+
+  <div class="qa-box">
+    <div class="qa-question"><span class="qa-badge">Q1</span> Why is it critical to separate update() from render() in game architecture?</div>
+    <div class="qa-answer">Separating state progression (<code>update</code>) from drawing (<code>render</code>) adheres to the Single Responsibility Principle and is essential for deterministic simulation. If graphics rendering lags due to high GPU load, the physics engine can either interpolate or tick multiple small physics steps without dropping collision accuracy or altering gameplay physics.</div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question"><span class="qa-badge">Q2</span> What is the "tunneling effect" in high-speed collision detection, and how do we prevent it?</div>
+    <div class="qa-answer">Tunneling occurs in discrete collision detection when an object’s velocity is so high (or frame rate drops so low) that its position delta $\Delta x = v \cdot \Delta t$ exceeds the width of an obstacle, causing it to teleport completely through the obstacle between frame $N$ and $N+1$. We prevent tunneling by clamping $\Delta t \le 0.1\text{s}$, using sub-stepping (dividing large frame deltas into smaller integration steps), or utilizing Swept AABB / Continuous Collision Detection (CCD).</div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question"><span class="qa-badge">Q3</span> How does the Finite State Machine (FSM) pattern prevent gameplay bugs compared to boolean flags?</div>
+    <div class="qa-answer">Relying on multiple loose booleans (e.g. <code>isPlaying</code>, <code>isPaused</code>, <code>isDead</code>, <code>isCountdown</code>) leads to invalid permutation states (e.g. <code>isPlaying = true</code> AND <code>isDead = true</code>). An FSM enforces mutually exclusive, strictly guarded state transitions (e.g. <code>START</code> $\to$ <code>COUNTDOWN</code> $\to$ <code>PLAYING</code> $\to$ <code>FAIL_SEQUENCE</code> $\to$ <code>GAMEOVER</code>), ensuring that input listeners and collision checks only execute in their valid lifecycle contexts.</div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question"><span class="qa-badge">Q4</span> Why is object pooling and array recycling important in browser JavaScript games?</div>
+    <div class="qa-answer">In JavaScript, continuously creating new objects (like bullets, particles, or buildings) and discarding them creates garbage on the heap. When the V8 garbage collector runs its mark-and-sweep cycle, it pauses the main execution thread (GC pause), resulting in noticeable micro-stutters and dropped frames. Reusing existing objects and filtering arrays in-place maintains a stable heap memory footprint.</div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question"><span class="qa-badge">Q5</span> How does parallax scrolling mathematically create the illusion of 3D depth?</div>
+    <div class="qa-answer">Parallax depth relies on <em>motion parallax</em>, where objects farther from the viewer appear to move slower across the visual field than closer objects. By multiplying the world scroll speed by fractional scale coefficients ($k_{\text{distant}} = 0.08$, $k_{\text{mid}} = 0.28$, $k_{\text{play}} = 1.0$), each 2D background layer translates at an inverse rate to its simulated Z-distance, creating authentic optical depth.</div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question"><span class="qa-badge">Q6</span> How do you prevent OS keyboard auto-repeat from corrupting game input (such as accidental double jumps)?</div>
+    <div class="qa-answer">When a user holds down a key, operating systems emit repeated <code>keydown</code> events at the OS repeat rate. In our input controller, we check if <code>!input.jump</code> before triggering the jump handler, setting <code>input.jump = true</code>. Subsequent repeat events are ignored until the key is physically released (<code>keyup</code> resets <code>input.jump = false</code>). This guarantees that a double jump requires a deliberate second physical key press.</div>
+  </div>
+
+  <div class="qa-box">
+    <div class="qa-question"><span class="qa-badge">Q7</span> How does procedural Web Audio synthesis improve application security and deployment simplicity?</div>
+    <div class="qa-answer">Loading external sound files via HTTP <code>fetch()</code> or <code>Audio()</code> elements frequently encounters CORS origin restrictions when opening HTML files directly from local disk (<code>file:///</code> protocol). Real-time mathematical synthesis via Web Audio oscillators operates entirely in memory with zero HTTP network requests, guarantees zero audio loading lag, and eliminates external asset dependencies.</div>
+  </div>
+
+  <!-- CONCLUSION -->
+  <div style="margin-top: 30px; border-top: 1px solid #cbd5e1; padding-top: 16px; font-size: 9pt; color: #64748b; text-align: center;">
+    <strong>NinjaX Chase Architecture & Interview Masterclass Guide</strong> • Generated for Educational & Technical Mastery
+  </div>
+
+</body>
+</html>

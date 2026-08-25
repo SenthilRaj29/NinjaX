@@ -1,0 +1,7 @@
+# Ignore browser temp profiles and scratch scripts
+chrome_temp_profile/
+chrome_temp/
+__pycache__/
+*.tmp
+.DS_Store
+Thumbs.db
