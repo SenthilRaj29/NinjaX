@@ -33,7 +33,7 @@
 
 Play **NinjaX** directly in your browser without installing anything:
 
-👉 [**Play NinjaX Online**](https://senthilraj29.github.io/NinjaX/)
+👉 **https://senthilraj29.github.io/NinjaX/
 
 ## 🕹️ How to Play
 
